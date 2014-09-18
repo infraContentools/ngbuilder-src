@@ -9,7 +9,7 @@
  */
 
 module.exports = (function() {
-	var gulp, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, path, logger, _initialized;
+	var gulp, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, path, _initialized;
 
 	function init() {
 		if (_initialized) return;
@@ -23,7 +23,6 @@ module.exports = (function() {
 		template = require('gulp-template');
 		jshint = require('gulp-jshint');
 		path = require('path');
-		logger = require('../utils/log');
 
 		_initialized = true;
 	}
