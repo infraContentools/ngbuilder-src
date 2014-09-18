@@ -1,0 +1,34 @@
+{
+  "name": "ngbuilder-src",
+  "version": "0.0.0",
+  "description": "ngbuilder plugin - concat files of a module",
+  "main": "src.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/infraContentools/ngbuilder-src"
+  },
+  "keywords": [
+    "ngbuilder",
+    "angular",
+    "traceur"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/infraContentools/ngbuilder-src/issues"
+  },
+  "homepage": "https://github.com/infraContentools/ngbuilder-src",
+  "dependencies": {
+    "multipipe": "^0.1.1",
+    "jshint-stylish": "^0.4.0",
+    "gulp-template": "^1.1.0",
+    "gulp-concat": "^2.4.1",
+    "gulp-wrap": "^0.3.0",
+    "gulp-ng-annotate": "^0.3.2",
+    "gulp-traceur": "^0.13.0",
+    "gulp-jshint": "^1.8.4"
+  }
+}
