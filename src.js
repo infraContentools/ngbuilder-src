@@ -49,7 +49,6 @@ module.exports = (function() {
 
 		pipe.on('error', next);
 		pipe.on('end', next);
-		pipe.on('finish', next);
 
 		pipe.pipe(vinyl.dest(modulePath));
 	}
