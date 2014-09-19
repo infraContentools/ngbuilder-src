@@ -1,6 +1,6 @@
 {
   "name": "ngbuilder-src",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ngbuilder plugin - concat files of a module",
   "main": "src.js",
   "scripts": {
