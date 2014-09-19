@@ -9,12 +9,12 @@
  */
 
 module.exports = (function() {
-	var gulp, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, path, logger, _initialized;
+	var vinyl, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, path, logger, _initialized;
 
 	function init() {
 		if (_initialized) return;
 
-		gulp = require('gulp');
+		vinyl = require('vinyl-fs');
 		multipipe = require('multipipe');
 		concat = require('gulp-concat');
 		traceur = require('gulp-traceur');
@@ -34,7 +34,7 @@ module.exports = (function() {
 		var modulePath = context.modulePath;
 
 		var pipe = multipipe(
-			gulp.src([
+			vinyl.src([
 				path.join(modulePath, '/src/module.js'),
 				path.join(modulePath, '/src/**/*.js')
 			]),
@@ -52,7 +52,7 @@ module.exports = (function() {
 		pipe.on('end', next);
 		pipe.on('finish', next);
 
-		pipe.pipe(gulp.dest(modulePath));
+		pipe.pipe(vinyl.dest(modulePath));
 	}
 
 	return {
