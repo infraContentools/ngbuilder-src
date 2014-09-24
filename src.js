@@ -9,7 +9,7 @@
  */
 
 module.exports = (function() {
-	var vinyl, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, path, _initialized;
+	var vinyl, multipipe, concat, traceur, ngAnnotate, wrap, jshint, template, nodePath, _initialized;
 
 	function init() {
 		if (_initialized) return;
@@ -22,7 +22,7 @@ module.exports = (function() {
 		wrap = require('gulp-wrap');
 		template = require('gulp-template');
 		jshint = require('gulp-jshint');
-		path = require('path');
+		nodePath = require('path');
 
 		_initialized = true;
 	}
@@ -30,13 +30,19 @@ module.exports = (function() {
 	function run(context, options, next) {
 		init();
 
-		var modulePath = context.modulePath;
+		var modulePath = context.modulePath,
+			sources = ['/src/module.js', '/src/**/*.js'];
+
+		if (options.append) {
+			sources = sources.concat(options.append);
+		}
+
+		sources = sources.map(function(path) {
+			return nodePath.join(modulePath, path);
+		});
 
 		var pipe = multipipe(
-			vinyl.src([
-				path.join(modulePath, '/src/module.js'),
-				path.join(modulePath, '/src/**/*.js')
-			]),
+			vinyl.src(sources),
 			jshint(),
 			jshint.reporter('jshint-stylish'),
 			jshint.reporter('fail'),
@@ -47,8 +53,14 @@ module.exports = (function() {
 			template(context)
 		);
 
-		pipe.on('error', next);
-		pipe.on('end', next);
+		function done(err) {
+			pipe.removeListener('error', done);
+			pipe.removeListener('end', done);
+			next(err);
+		}
+
+		pipe.on('error', done);
+		pipe.on('end', done);
 
 		pipe.pipe(vinyl.dest(modulePath));
 	}
